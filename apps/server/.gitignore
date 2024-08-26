@@ -1,0 +1,24 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+*.exe~
+*.out
+*.a
+
+# Testing
+*.test
+
+# Go build
+/build/
+
+# Dependency directories (vendor/)
+vendor/
+
+# Logs
+*.log
+
+# IDE/editor specific
+.idea/
+.vscode/
