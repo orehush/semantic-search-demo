@@ -3,11 +3,26 @@ package main
 import (
 	"log"
 	"net/http"
-	"semantic-search-demo/internal/api"
+	"os"
+
+	"semantic-search-demo/src/api"
+	"semantic-search-demo/src/app"
+
+	"github.com/julienschmidt/httprouter"
 )
 
 func main() {
-	router := api.NewRouter()
-	log.Println("Starting server on :8080")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	app.InitDB()
+
+	router := httprouter.New()
+	router.POST("/admin/synonyms", api.AddSynonymsHandler)
+	router.GET("/synonyms", api.GetSynonymsHandler)
+
+	port := os.Getenv("SERVER_PORT")
+	if port == "" {
+		port = "8080"
+	}
+
+	log.Printf("Starting server on port %s...", port)
+	log.Fatal(http.ListenAndServe(":"+port, router))
 }
